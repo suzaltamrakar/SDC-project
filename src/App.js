@@ -15,6 +15,7 @@ import Blogs from "./pages/Blogs";
 import Register from "./authentication/Register";
 import AddDestination from "./pages/AddDestination";
 import Maps from "./pages/Maps";
+import ReviewPage from "./pages/ReviewPage";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
         <Route path="/signup" element={<SignUp />} />
         <Route path="/blog" element={<BlogPage />} />
         <Route path="/blogs" element={<Blogs />} />
+        <Route path="/reviews" element={<ReviewPage />} />
         <Route path="/destination" element={<Destination />} />
         <Route path="/add-destination" element={<AddDestination />} />
         <Route path="/tripdetails" element={<TripDetails />} />
