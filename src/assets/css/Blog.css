@@ -1,0 +1,140 @@
+/* Hero section styling */
+#home {
+  position: relative;
+  overflow: hidden;
+}
+
+#home::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  z-index: 1;
+}
+
+#home .text-white {
+  position: relative;
+  z-index: 2;
+}
+
+#home h2 {
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#home a {
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+#home a:hover {
+  transform: translateY(-2px);
+}
+
+/* Itinerary section styling */
+#itinerary .bg-white {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#itinerary .bg-white:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+#itinerary h4 {
+  color: #065f46;
+}
+
+/* Booking section styling */
+#booking {
+  background-color: #f3f4f6;
+  padding: 2rem 0;
+}
+
+#booking form {
+  transition: box-shadow 0.3s ease;
+}
+
+#booking form:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#booking input {
+  border-color: #d1d5db;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#booking input:focus {
+  border-color: #f4d03f;
+  box-shadow: 0 0 0 3px rgba(244, 208, 63, 0.2);
+  outline: none;
+}
+
+#booking button {
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#booking button:hover {
+  transform: scale(1.05);
+}
+
+/* Navigation styling */
+nav {
+  padding: 1rem 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav ul li a {
+  padding: 0.25rem 0.5rem;
+  transition: color 0.3s ease;
+}
+
+/* Footer styling */
+footer {
+  padding: 2rem 0;
+}
+
+footer p {
+  line-height: 1.6;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+  #home {
+    height: 60vh;
+  }
+
+  #home h2 {
+    font-size: 2.5rem;
+  }
+
+  #itinerary .space-y-8 > div {
+    padding: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  nav ul {
+    flex-direction: column;
+    /* space-x-0;
+    space-y-2; */
+    text-align: center;
+  }
+
+  #home {
+    height: 40vh;
+  }
+
+  #home h2 {
+    font-size: 2rem;
+  }
+
+  #itinerary .space-y-8 {
+    padding: 0.5rem;
+  }
+
+  #booking form {
+    padding: 1rem;
+  }
+}

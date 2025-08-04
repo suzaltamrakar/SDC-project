@@ -1,0 +1,41 @@
+/* Parallax effect for hero images */
+.parallax {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+/* Gallery image hover effect */
+.gallery-img:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease-in-out;
+}
+
+/* Hero slide toggle for image slider */
+.hero-slide {
+  display: none;
+}
+
+.hero-slide.active {
+  display: block;
+}
+
+/* Animated counter transition */
+.counter {
+  transition: all 2s ease-in-out;
+}
+
+/* Fade-in animation for text elements */
+.animate-fade-in {
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,325 @@
+/* Navbar Styles */
+.navbar {
+    width: 100%;
+    background: #ffffff;
+    padding: 0;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 2rem;
+    position: relative;
+}
+
+/* Logo Section */
+.logo-section {
+    display: flex;
+    align-items: center;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 0;
+}
+
+.logo-image {
+    display: none; /* Hide the image logo */
+}
+
+.logo-text {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+}
+
+.logo-main {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #000000;
+    letter-spacing: 2px;
+    display: flex;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+/* Stylized A in TRAVEL */
+.logo-a {
+    position: relative;
+    color: #000000;
+    font-weight: bold;
+}
+
+.logo-a::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 30px;
+    background: #FF632C;
+    border-radius: 50%;
+    z-index: -1;
+}
+
+.logo-a::after {
+    content: '';
+    position: absolute;
+    top: -15px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: #FF632C;
+    border-radius: 2px;
+    transform: rotate(-15deg);
+    transform-origin: left center;
+}
+
+.logo-sub {
+    font-size: 1.4rem;
+    color: #000000;
+    font-weight: normal;
+    margin-top: 0.3rem;
+    letter-spacing: 3px;
+    position: relative;
+    font-family: Arial, sans-serif;
+}
+
+/* Dots under DIARY letters */
+.logo-sub::before {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: transparent;
+}
+
+.logo-sub::after {
+    content: '• • • • •';
+    position: absolute;
+    bottom: -15px;
+    left: 0;
+    width: 100%;
+    font-size: 0.6rem;
+    letter-spacing: 12px;
+    color: #000000;
+}
+
+/* Navigation Section */
+.nav-section {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    background: transparent;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+}
+
+.nav-segment {
+    padding: 0;
+    transition: all 0.3s ease;
+}
+
+.nav-segment:hover {
+    background-color: transparent;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #000000;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+    white-space: nowrap;
+    font-family: Arial, sans-serif;
+}
+
+.nav-link:hover {
+    color: #FF632C;
+}
+
+/* User Profile Section */
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.user-name {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #000000;
+    font-family: Arial, sans-serif;
+}
+
+.user-role {
+    font-size: 0.9rem;
+    color: #666666;
+    font-family: Arial, sans-serif;
+}
+
+.user-avatar {
+    width: 45px;
+    height: 45px;
+    border: 2px solid #000000;
+    border-radius: 50%;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.user-avatar::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 25px;
+    height: 25px;
+    border: 2px solid #000000;
+    border-radius: 50%;
+    background: transparent;
+}
+
+.user-avatar::after {
+    content: '';
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 15px;
+    height: 15px;
+    border: 2px solid #000000;
+    border-radius: 50% 50% 0 0;
+    border-bottom: none;
+    background: transparent;
+}
+
+/* Remove old styles */
+.nav-separator {
+    display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .navbar-container {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+
+    .nav-container {
+        width: 100%;
+        justify-content: center;
+        gap: 1rem;
+    }
+
+    .logo-main {
+        font-size: 2.5rem;
+    }
+
+    .logo-sub {
+        font-size: 1.2rem;
+    }
+
+    .user-profile {
+        margin-top: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 0;
+    }
+
+    .navbar-container {
+        padding: 0.5rem;
+    }
+
+    .nav-container {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .logo-container {
+        gap: 0;
+    }
+
+    .logo-main {
+        font-size: 2rem;
+        letter-spacing: 1px;
+    }
+
+    .logo-sub {
+        font-size: 1rem;
+    }
+}
+
+/* Animation for navbar elements */
+.nav-segment {
+    animation: fadeInDown 0.6s ease-out;
+}
+
+.nav-segment:nth-child(1) { animation-delay: 0.1s; }
+.nav-segment:nth-child(2) { animation-delay: 0.2s; }
+.nav-segment:nth-child(3) { animation-delay: 0.3s; }
+.nav-segment:nth-child(4) { animation-delay: 0.4s; }
+.nav-segment:nth-child(5) { animation-delay: 0.5s; }
+
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Hover effects */
+.nav-segment:hover {
+    transform: translateY(-1px);
+}
+
+/* Focus states for accessibility */
+.nav-link:focus {
+    outline: 2px solid #FF632C;
+    outline-offset: 2px;
+    border-radius: 4px;
+}
+
+/* Active state */
+.nav-segment.active {
+    background-color: transparent;
+}
+
+.nav-segment.active .nav-link {
+    color: #FF632C;
+}

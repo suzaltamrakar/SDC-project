@@ -1,0 +1,575 @@
+.login-container {
+    height: 100vh;
+    display: flex;
+    font-family: 'Arial', sans-serif;
+    overflow: hidden;
+    background: #f8f9fa;
+}
+
+.login-section {
+    flex: 1;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+    animation: slideInLeft 0.8s ease-out;
+}
+
+.login-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    padding: 35px;
+    width: 100%;
+    max-width: 400px;
+    animation: fadeInUp 1s ease-out 0.5s both;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.login-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.logo-container {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+}
+
+.travel-logo {
+    height: 45px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    transition: transform 0.3s ease;
+}
+
+.travel-logo:hover {
+    transform: scale(1.05);
+}
+
+.login-header h1 {
+    color: #333;
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.login-header p {
+    color: #666;
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+}
+
+.form-group input {
+    padding: 14px 16px;
+    border: 2px solid #e1e5e9;
+    border-radius: 12px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #667eea;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    transform: translateY(-1px);
+}
+
+.form-group input.error {
+    border-color: #e74c3c;
+    background: #fdf2f2;
+    animation: shake 0.5s ease-in-out;
+}
+
+.form-group input.error:focus {
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+}
+
+/* Password input container styling */
+.password-input-container {
+    position: relative;
+    width: 100%;
+}
+
+.password-input {
+    padding: 14px 16px;
+    padding-right: 50px; /* Make room for the eye icon */
+    border: 2px solid #e1e5e9;
+    border-radius: 12px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.password-input:focus {
+    outline: none;
+    border-color: #667eea;
+    background: white;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    transform: translateY(-1px);
+}
+
+.password-input.error {
+    border-color: #e74c3c;
+    background: #fdf2f2;
+    animation: shake 0.5s ease-in-out;
+}
+
+.password-input.error:focus {
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1);
+}
+
+.password-toggle-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    color: #666;
+    padding: 5px;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+}
+
+.password-toggle-btn:hover {
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+}
+
+.password-toggle-btn:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #666;
+    cursor: pointer;
+}
+
+.remember-me input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: #FF632C;
+    cursor: pointer;
+}
+
+.forgot-password {
+    color: #FF632C;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.error-message {
+    color: #e74c3c;
+    font-size: 12px;
+    margin-top: 3px;
+    font-weight: 500;
+    animation: fadeIn 0.3s ease;
+}
+
+.login-btn {
+    background: #FF632C;
+    color: white;
+    border: none;
+    padding: 14px 25px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+}
+
+.login-btn:hover::before {
+    left: 100%;
+}
+
+.login-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(255, 99, 44, 0.3);
+}
+
+.login-btn:active {
+    transform: translateY(0);
+}
+
+.register-link {
+    text-align: center;
+    margin-top: 20px;
+    color: #666;
+    font-size: 13px;
+}
+
+.register-link a {
+    color: #FF632C;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.register-link a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: #FF632C;
+    transition: width 0.3s ease;
+}
+
+.register-link a:hover::after {
+    width: 100%;
+}
+
+.travel-section {
+    flex: 1;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+    animation: slideInRight 0.8s ease-out;
+}
+
+.travel-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/><circle cx="10" cy="60" r="0.5" fill="white" opacity="0.1"/><circle cx="90" cy="40" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.3;
+    animation: float 6s ease-in-out infinite;
+}
+
+.travel-content {
+    text-align: center;
+    color: white;
+    z-index: 2;
+    position: relative;
+    animation: fadeInUp 1s ease-out 0.3s both;
+}
+
+.travel-logo-large {
+    height: 80px;
+    width: auto;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.travel-subtitle {
+    font-size: 16px;
+    margin-bottom: 25px;
+    opacity: 0.9;
+    line-height: 1.4;
+    max-width: 400px;
+}
+
+.travel-features {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 25px;
+}
+
+.travel-feature {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 14px;
+    opacity: 0.9;
+    padding: 8px 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    animation: slideInRight 0.6s ease-out both;
+}
+
+.travel-feature:nth-child(1) { animation-delay: 0.3s; }
+.travel-feature:nth-child(2) { animation-delay: 0.4s; }
+.travel-feature:nth-child(3) { animation-delay: 0.5s; }
+.travel-feature:nth-child(4) { animation-delay: 0.6s; }
+
+.travel-feature:hover {
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateX(8px);
+}
+
+.travel-icon {
+    width: 24px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    transition: all 0.3s ease;
+}
+
+.travel-feature:hover .travel-icon {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+/* Animations */
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.03);
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-5px);
+    }
+}
+
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-3px); }
+    75% { transform: translateX(3px); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .login-container {
+        flex-direction: column;
+        height: 100vh;
+    }
+
+    .login-section {
+        flex: none;
+        height: 65vh;
+        padding: 15px;
+    }
+
+    .login-card {
+        padding: 25px 20px;
+        margin: 5px;
+        border-radius: 15px;
+    }
+
+    .travel-logo {
+        height: 40px;
+    }
+
+    .login-header h1 {
+        font-size: 20px;
+    }
+
+    .login-header p {
+        font-size: 12px;
+    }
+
+    .form-group input,
+    .password-input {
+        padding: 12px 14px;
+        font-size: 13px;
+    }
+
+    .password-input {
+        padding-right: 45px;
+    }
+
+    .password-toggle-btn {
+        right: 10px;
+        font-size: 14px;
+        width: 25px;
+        height: 25px;
+    }
+
+    .login-btn {
+        padding: 12px 20px;
+        font-size: 14px;
+    }
+
+    .login-form {
+        gap: 15px;
+    }
+
+    .form-options {
+        flex-direction: column;
+        gap: 10px;
+        align-items: flex-start;
+    }
+
+    .travel-section {
+        flex: none;
+        height: 35vh;
+        padding: 20px 15px;
+    }
+
+    .travel-logo-large {
+        height: 60px;
+        margin-bottom: 15px;
+    }
+
+    .travel-subtitle {
+        font-size: 14px;
+        margin-bottom: 15px;
+    }
+
+    .travel-features {
+        margin-top: 15px;
+        gap: 8px;
+    }
+
+    .travel-feature {
+        font-size: 12px;
+        gap: 10px;
+        padding: 6px 12px;
+    }
+
+    .travel-icon {
+        width: 20px;
+        height: 20px;
+        font-size: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-section {
+        height: 70vh;
+        padding: 10px;
+    }
+
+    .login-card {
+        padding: 20px 15px;
+    }
+
+    .travel-section {
+        height: 30vh;
+        padding: 15px 10px;
+    }
+
+    .travel-logo-large {
+        height: 50px;
+    }
+
+    .travel-subtitle {
+        font-size: 12px;
+    }
+
+    .travel-feature {
+        font-size: 11px;
+        padding: 5px 10px;
+    }
+}
