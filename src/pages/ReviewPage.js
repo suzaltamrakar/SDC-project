@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../assets/css/ReviewPage.css";
-import Navbar from "../components/Navbar";
+import Navbar0 from "../components/Navbar0";
 
 const ReviewPage = () => {
   const [selectedFilter, setSelectedFilter] = useState("all");
@@ -126,7 +126,7 @@ const ReviewPage = () => {
 
   return (
     <div className="review-page">
-      <Navbar />
+      <Navbar0 />
 
       <div className="review-container">
         {/* Header Section */}

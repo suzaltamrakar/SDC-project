@@ -271,6 +271,9 @@
     font-weight: 600;
     transition: all 0.3s ease;
     position: relative;
+    background: transparent;
+    border: none;
+    padding: 0;
 }
 
 .register-link a::after {

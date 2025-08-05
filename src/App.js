@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 // import Navbar from './components/Navbar';
 import LandingPage from "./pages/LandingPage";
 import Navbar from "./components/Navbar";
+import Navbar2 from "./components/Navbar0";
 import Destination from "./pages/Destination";
 import TripDetails from "./pages/TripDetails";
 import Booking from "./pages/Booking";
@@ -22,6 +23,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navbar />} />
+        <Route path="/navbar" element={<Navbar2 />} />
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<LandingPage />} />
         <Route path="/login" element={<Login />} />
