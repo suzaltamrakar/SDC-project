@@ -1,3 +1,47 @@
+# Travel Diaries - React App
+
+## Quick Start Guide
+
+### Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn
+
+### Starting the Application
+
+1. **Start the API Server (Backend)**
+
+   ```bash
+   cd api
+   npm install
+   npm start
+   ```
+
+   The API server will run on http://localhost:3001
+
+2. **Start the Frontend (React App)**
+   ```bash
+   # In a new terminal window, from the root directory
+   npm install
+   npm start
+   ```
+   The React app will run on http://localhost:3000
+
+### Default Users for Testing
+
+- **Email**: john@example.com, **Password**: password123
+- **Email**: jane@example.com, **Password**: password123
+
+### Features
+
+- User registration and login
+- Social media-style feed with posts
+- Like and comment functionality
+- User profile management
+- Travel destination management
+
+---
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

@@ -1,206 +1,346 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../assets/css/BlogPage.css";
-import Navbar from "../components/Navbar";
+import Navbar0 from "../components/Navbar0";
+import { useAuth } from "../context/AuthContext";
+import { useFollowing } from "../context/FollowingContext";
+import { useNavigate } from "react-router-dom";
 
-const BlogPage = () => {
+function BlogPage() {
+  const { user, isAuthenticated } = useAuth();
+  const { followUser, unfollowUser, isFollowing } = useFollowing();
+  const navigate = useNavigate();
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [showCreateForm, setShowCreateForm] = useState(false);
+  const [blogForm, setBlogForm] = useState({
+    title: "",
+    subtitle: "",
+    content: "",
+    imageUrl: "",
+    videoUrl: "",
+    tags: "",
+  });
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch("http://localhost:3001/api/posts");
+        if (response.ok) {
+          const data = await response.json();
+          setPosts(data);
+        } else {
+          console.error("Failed to fetch posts");
+        }
+      } catch (error) {
+        console.error("Error fetching posts:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setBlogForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmitBlog = async (e) => {
+    e.preventDefault();
+    if (!isAuthenticated) {
+      alert("Please login to create blog posts");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://localhost:3001/api/posts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: JSON.stringify({
+          content: `${blogForm.title}\n\n${blogForm.subtitle}\n\n${blogForm.content}`,
+          image: blogForm.imageUrl || null,
+          videoUrl: blogForm.videoUrl || null,
+          tags: blogForm.tags
+            .split(",")
+            .map((tag) => tag.trim())
+            .filter((tag) => tag),
+        }),
+      });
+
+      if (response.ok) {
+        const newPost = await response.json();
+        setPosts([newPost, ...posts]);
+        setBlogForm({
+          title: "",
+          subtitle: "",
+          content: "",
+          imageUrl: "",
+          videoUrl: "",
+          tags: "",
+        });
+        setShowCreateForm(false);
+        alert("Blog post created successfully!");
+      } else {
+        alert("Failed to create blog post");
+      }
+    } catch (error) {
+      console.error("Error creating blog post:", error);
+      alert("Failed to create blog post");
+    }
+  };
+
+  const handleFollowUser = (postUser) => {
+    if (!isAuthenticated) {
+      alert("Please login to follow users");
+      return;
+    }
+
+    if (postUser.id === user?.id) {
+      return; // Don't allow following yourself
+    }
+
+    if (isFollowing(postUser.id)) {
+      unfollowUser(postUser.id);
+    } else {
+      followUser(postUser.id, postUser.name);
+    }
+  };
+
+  if (loading) {
+    return (
+      <div className="blog-page-container">
+        <Navbar0 />
+        <div className="loading-container">
+          <div className="loading-spinner">Loading...</div>
+        </div>
+      </div>
+    );
+  }
+
   return (
-    <div className="blog-page">
-      <Navbar />
-
-      {/* Main Content with Sidebar */}
-      <div className="main-layout">
-        {/* Left Sidebar for Advertisements */}
-        <div className="sidebar">
-          <div className="ad-container">
-            <h3 className="ad-title">Sponsored Content</h3>
-
-            {/* Ad 1 */}
-            <div className="ad-card">
-              <img
-                src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=300"
-                alt="Data Analytics Course"
-                className="ad-image"
-              />
-              <div className="ad-content">
-                <h4>Master Data Analytics</h4>
-                <p>
-                  Learn advanced analytics techniques with our comprehensive
-                  course.
-                </p>
-                <button className="ad-btn">Learn More</button>
-              </div>
-            </div>
-
-            {/* Ad 2 */}
-            <div className="ad-card">
-              <img
-                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=300"
-                alt="AI Tools"
-                className="ad-image"
-              />
-              <div className="ad-content">
-                <h4>AI Development Tools</h4>
-                <p>
-                  Discover the latest AI tools and frameworks for developers.
-                </p>
-                <button className="ad-btn">Explore Tools</button>
-              </div>
-            </div>
-
-            {/* Ad 3 */}
-            <div className="ad-card">
-              <img
-                src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=300"
-                alt="Tech Conference"
-                className="ad-image"
-              />
-              <div className="ad-content">
-                <h4>Tech Conference 2024</h4>
-                <p>Join us for the biggest tech conference of the year.</p>
-                <button className="ad-btn">Register Now</button>
-              </div>
-            </div>
-
-            {/* Newsletter Signup */}
-            <div className="newsletter-card">
-              <h4>Stay Updated</h4>
-              <p>Get the latest insights delivered to your inbox.</p>
-              <div className="newsletter-form">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="newsletter-input"
-                />
-                <button className="newsletter-btn">Subscribe</button>
-              </div>
-            </div>
-          </div>
+    <div className="blog-page-container">
+      <Navbar0 />
+      <div className="blog-page-content">
+        {/* Header */}
+        <div className="blog-header">
+          <h1 className="blog-title">Travel Blogs</h1>
+          <p className="blog-subtitle">
+            Discover amazing travel stories from around the world
+          </p>
+          {isAuthenticated && (
+            <button
+              className="create-blog-btn"
+              onClick={() => setShowCreateForm(true)}
+            >
+              <i className="fas fa-plus"></i>
+              Create New Blog
+            </button>
+          )}
         </div>
 
-        {/* Main Article Content */}
-        <div className="article-container">
-          <div className="article-header">
-            <div className="story-tag">
-              <i className="fa-solid fa-star"></i>
-              Member-only story
+        {/* Create Blog Form */}
+        {showCreateForm && (
+          <div className="create-blog-form-container">
+            <div className="create-blog-form">
+              <div className="form-header">
+                <h2>Create New Blog Post</h2>
+                <button
+                  className="close-btn"
+                  onClick={() => setShowCreateForm(false)}
+                >
+                  <i className="fas fa-times"></i>
+                </button>
+              </div>
+
+              <form onSubmit={handleSubmitBlog}>
+                <div className="form-group">
+                  <label htmlFor="title">Title *</label>
+                  <input
+                    type="text"
+                    id="title"
+                    name="title"
+                    value={blogForm.title}
+                    onChange={handleInputChange}
+                    placeholder="Enter blog title"
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="subtitle">Subtitle</label>
+                  <input
+                    type="text"
+                    id="subtitle"
+                    name="subtitle"
+                    value={blogForm.subtitle}
+                    onChange={handleInputChange}
+                    placeholder="Enter subtitle"
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="content">Content *</label>
+                  <textarea
+                    id="content"
+                    name="content"
+                    value={blogForm.content}
+                    onChange={handleInputChange}
+                    placeholder="Write your blog content here..."
+                    rows="8"
+                    required
+                  />
+                </div>
+
+                <div className="form-row">
+                  <div className="form-group">
+                    <label htmlFor="imageUrl">Image URL</label>
+                    <input
+                      type="url"
+                      id="imageUrl"
+                      name="imageUrl"
+                      value={blogForm.imageUrl}
+                      onChange={handleInputChange}
+                      placeholder="https://example.com/image.jpg"
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="videoUrl">Video URL</label>
+                    <input
+                      type="url"
+                      id="videoUrl"
+                      name="videoUrl"
+                      value={blogForm.videoUrl}
+                      onChange={handleInputChange}
+                      placeholder="https://example.com/video.mp4"
+                    />
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="tags">Tags</label>
+                  <input
+                    type="text"
+                    id="tags"
+                    name="tags"
+                    value={blogForm.tags}
+                    onChange={handleInputChange}
+                    placeholder="travel, adventure, nepal (comma separated)"
+                  />
+                </div>
+
+                <div className="form-actions">
+                  <button
+                    type="button"
+                    className="cancel-btn"
+                    onClick={() => setShowCreateForm(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button type="submit" className="submit-btn">
+                    <i className="fas fa-paper-plane"></i>
+                    Publish Blog
+                  </button>
+                </div>
+              </form>
             </div>
+          </div>
+        )}
 
-            <h1 className="article-title">
-              You're using ChatGPT wrong. Here's how to prompt like a pro.
-            </h1>
-
-            <p className="article-subtitle">
-              Smarter prompts lead to smarter responses.
-            </p>
-
-            <div className="author-section">
-              <div className="author-info">
-                <img
-                  src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150"
-                  alt="James Wilkins"
-                  className="author-avatar"
-                />
-                <div className="author-details">
-                  <span className="author-name">James Wilkins</span>
-                  <button className="follow-author-btn">Follow</button>
+        {/* Blog Posts Grid */}
+        <div className="blog-posts-grid">
+          {posts.length === 0 ? (
+            <div className="no-posts">
+              <i className="fas fa-newspaper"></i>
+              <p>No blog posts yet</p>
+              {isAuthenticated && (
+                <button
+                  className="create-first-post-btn"
+                  onClick={() => navigate("/dashboard")}
+                >
+                  Create the First Post
+                </button>
+              )}
+            </div>
+          ) : (
+            posts.map((post) => (
+              <div key={post.id} className="blog-post-card">
+                <div className="blog-post-image">
+                  {post.image ? (
+                    <img src={post.image} alt="Blog post" />
+                  ) : (
+                    <div className="blog-post-placeholder">
+                      <i className="fas fa-image"></i>
+                    </div>
+                  )}
+                </div>
+                <div className="blog-post-content">
+                  <div className="blog-post-header">
+                    <div className="blog-author">
+                      <img
+                        src={
+                          post.user?.avatar ||
+                          "https://images.unsplash.com/photo-1535713875002-d1d0c3770cd4?w=40&h=40&fit=crop&crop=face"
+                        }
+                        alt={post.user?.name}
+                        className="author-avatar"
+                      />
+                      <div className="author-info">
+                        <h4 className="author-name">{post.user?.name}</h4>
+                        <span className="post-date">{post.timestamp}</span>
+                      </div>
+                      {/* Follow Button - Only show for other users */}
+                      {isAuthenticated && post.user?.id !== user?.id && (
+                        <button
+                          className={`follow-btn ${
+                            isFollowing(post.user?.id) ? "following" : ""
+                          }`}
+                          onClick={() => handleFollowUser(post.user)}
+                        >
+                          {isFollowing(post.user?.id) ? "Following" : "Follow"}
+                        </button>
+                      )}
+                    </div>
+                    <div className="blog-post-location">
+                      <i className="fas fa-map-marker-alt"></i>
+                      <span>{post.user?.location || "Unknown Location"}</span>
+                    </div>
+                  </div>
+                  <div className="blog-post-text">
+                    <p>{post.content}</p>
+                  </div>
+                  <div className="blog-post-footer">
+                    <div className="blog-post-stats">
+                      <span className="likes-count">
+                        <i className="fas fa-heart"></i>
+                        {post.likes || 0}
+                      </span>
+                      <span className="comments-count">
+                        <i className="fas fa-comment"></i>
+                        {post.comments || 0}
+                      </span>
+                      <span className="shares-count">
+                        <i className="fas fa-share"></i>
+                        {post.shares || 0}
+                      </span>
+                    </div>
+                    <button className="read-more-btn">Read More</button>
+                  </div>
                 </div>
               </div>
-              <div className="article-meta">
-                <span className="read-time">12 min read</span>
-                <span className="publish-date">Jun 5, 2025</span>
-              </div>
-            </div>
-
-            <div className="engagement-metrics">
-              <div className="metrics-left">
-                <span className="claps">
-                  <i className="fa-solid fa-hands-clapping"></i>
-                  3.5K
-                </span>
-                <span className="comments">
-                  <i className="fa-solid fa-comment"></i>
-                  211
-                </span>
-              </div>
-              <div className="metrics-right">
-                <button className="action-btn" title="Bookmark">
-                  <i className="fa-solid fa-bookmark"></i>
-                </button>
-                <button className="action-btn" title="Listen">
-                  <i className="fa-solid fa-play"></i>
-                </button>
-                <button className="action-btn" title="Share">
-                  <i className="fa-solid fa-share"></i>
-                </button>
-                <button className="action-btn" title="More options">
-                  <i className="fa-solid fa-ellipsis"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="article-content">
-            <p className="article-intro">
-              Discover the powerful psychological technique that can transform
-              how people perceive and remember you in just 60 seconds...
-            </p>
-
-            <div className="main-illustration">
-              <img
-                src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=800"
-                alt="AI Illustration"
-                className="article-image"
-              />
-              <p className="image-caption">Image generated by DALL-E, OpenAI</p>
-            </div>
-
-            <div className="highlighted-text">
-              <div className="highlight-content">
-                Most people use ChatGPT for quick answers. But reframing the way
-                I understand Large Language Models (LLMs) like ChatGPT or Gemini
-                instantly improved the responses I was able to get. With the
-                right prompts, my responses became sharper, more accurate, and
-                more tailored to my needs.
-              </div>
-              <span className="highlight-label">Top highlight</span>
-            </div>
-
-            <div className="disclaimer-section">
-              <div className="disclaimer-content">
-                <strong>Disclaimer:</strong> I'm no professional AI engineer.
-                What follows is a blend of research and my own personal insight
-                and experience, and I'll flag any assumptions I make as I go. If
-                you're a language model expert, feel free to weigh in. I'll
-                happily be told that I'm wrong.
-              </div>
-            </div>
-
-            <p className="article-paragraph">
-              Still, this simple change in mindset helped me get way more out of
-              ChatGPT by changing the mental model I hold for it. Try these
-              ideas out and let the results speak for themselves.
-            </p>
-
-            <div className="call-to-action">
-              <div className="cta-content">
-                <strong>Not a member?</strong> You can read this story,
-                completely free, at the link below:
-                <a
-                  href="https://jdhwilkins.com/youre-using-chatgpt-wrong-heres-how-to-prompt-like-a-pro/"
-                  className="cta-link"
-                >
-                  https://jdhwilkins.com/youre-using-chatgpt-wrong-heres-how-to-prompt-like-a-pro/
-                </a>
-              </div>
-              <div className="comment-count">
-                <i className="fa-solid fa-comment"></i>1
-              </div>
-            </div>
-          </div>
+            ))
+          )}
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default BlogPage;

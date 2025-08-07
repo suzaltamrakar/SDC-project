@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import "../assets/css/ReviewPage.css";
 import Navbar0 from "../components/Navbar0";
+import { useAuth } from "../context/AuthContext";
+import { useFollowing } from "../context/FollowingContext";
 
 const ReviewPage = () => {
+  const { user, isAuthenticated } = useAuth();
+  const { followUser, unfollowUser, isFollowing } = useFollowing();
   const [selectedFilter, setSelectedFilter] = useState("all");
   const [sortBy, setSortBy] = useState("recent");
 
@@ -11,6 +15,7 @@ const ReviewPage = () => {
       id: 1,
       blogTitle: "You're using ChatGPT wrong. Here's how to prompt like a pro.",
       reviewer: {
+        id: "reviewer1",
         name: "Sarah Johnson",
         avatar:
           "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150",
@@ -28,6 +33,7 @@ const ReviewPage = () => {
       blogTitle:
         "The 1-Minute Introduction That Makes People Remember You Forever",
       reviewer: {
+        id: "reviewer2",
         name: "Mike Chen",
         avatar:
           "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150",
@@ -44,6 +50,7 @@ const ReviewPage = () => {
       id: 3,
       blogTitle: "Learning to sit with my loneliness",
       reviewer: {
+        id: "reviewer3",
         name: "Emma Wilson",
         avatar:
           "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150",
@@ -60,6 +67,7 @@ const ReviewPage = () => {
       id: 4,
       blogTitle: "Love Is Not a Feeling",
       reviewer: {
+        id: "reviewer4",
         name: "David Rodriguez",
         avatar:
           "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
@@ -76,6 +84,7 @@ const ReviewPage = () => {
       id: 5,
       blogTitle: "What Keeps my Dad up at Night vs What Doesn't",
       reviewer: {
+        id: "reviewer5",
         name: "Lisa Thompson",
         avatar:
           "https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=150",
@@ -92,6 +101,7 @@ const ReviewPage = () => {
       id: 6,
       blogTitle: "You're using ChatGPT wrong. Here's how to prompt like a pro.",
       reviewer: {
+        id: "reviewer6",
         name: "Alex Kim",
         avatar:
           "https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=150",
@@ -123,6 +133,23 @@ const ReviewPage = () => {
   const averageRating =
     reviews.reduce((acc, review) => acc + review.rating, 0) / reviews.length;
   const totalReviews = reviews.length;
+
+  const handleFollowUser = (reviewer) => {
+    if (!isAuthenticated) {
+      alert("Please login to follow users");
+      return;
+    }
+
+    if (reviewer.id === user?.id) {
+      return; // Don't allow following yourself
+    }
+
+    if (isFollowing(reviewer.id)) {
+      unfollowUser(reviewer.id);
+    } else {
+      followUser(reviewer.id, reviewer.name);
+    }
+  };
 
   return (
     <div className="review-page">
@@ -225,6 +252,17 @@ const ReviewPage = () => {
                     )}
                   </span>
                 </div>
+                {/* Follow Button - Only show for other users */}
+                {isAuthenticated && review.reviewer.id !== user?.id && (
+                  <button
+                    className={`follow-btn ${
+                      isFollowing(review.reviewer.id) ? "following" : ""
+                    }`}
+                    onClick={() => handleFollowUser(review.reviewer)}
+                  >
+                    {isFollowing(review.reviewer.id) ? "Following" : "Follow"}
+                  </button>
+                )}
               </div>
 
               <div className="review-content">

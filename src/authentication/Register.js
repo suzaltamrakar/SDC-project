@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './Register.css';
 import travelLogo from '../assets/img/Travel Diaries-03.png';
+import { useAuth } from '../context/AuthContext';
 
 const Register = () => {
+  const navigate = useNavigate();
+  const { register } = useAuth();
     const [formData, setFormData] = useState({
         fullName: '',
         email: '',
@@ -60,7 +66,7 @@ const Register = () => {
 
         if (!formData.phone.trim()) {
             newErrors.phone = 'Phone number is required';
-        } else if (!/^[\+]?[1-9][\d]{0,15}$/.test(formData.phone.replace(/\s/g, ''))) {
+        } else if (!/^[+]?[1-9][\d]{0,15}$/.test(formData.phone.replace(/\s/g, ''))) {
             newErrors.phone = 'Please enter a valid phone number';
         }
 
@@ -73,20 +79,53 @@ const Register = () => {
         if (validateForm()) {
             setIsLoading(true);
             try {
-                // Simulate API call
-                await new Promise(resolve => setTimeout(resolve, 2000));
-                console.log('Form submitted:', formData);
-                alert('Registration successful! Welcome to Travel Diary!');
-                // Reset form
-                setFormData({
-                    fullName: '',
-                    email: '',
-                    password: '',
-                    confirmPassword: '',
-                    phone: ''
-                });
+                const result = await register(
+                    formData.fullName,
+                    formData.email,
+                    formData.password,
+                    formData.phone
+                );
+                
+                if (result.success) {
+                    toast.success('Registration successful! Welcome to Travel Diary!', {
+                        position: "top-right",
+                        autoClose: 3000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                    });
+                    // Reset form
+                    setFormData({
+                        fullName: '',
+                        email: '',
+                        password: '',
+                        confirmPassword: '',
+                        phone: ''
+                    });
+                    // Automatically navigate to home page after successful registration
+                    setTimeout(() => {
+                        navigate('/dashboard');
+                    }, 1000);
+                } else {
+                    toast.error(result.error || 'Registration failed. Please try again.', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                    });
+                }
             } catch (error) {
-                alert('Registration failed. Please try again.');
+                toast.error('Registration failed. Please try again.', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                });
             } finally {
                 setIsLoading(false);
             }

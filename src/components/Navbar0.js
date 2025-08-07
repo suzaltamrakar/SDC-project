@@ -1,8 +1,12 @@
 import React from "react";
 import "./Navbar0.css";
 import travelLogo from "../assets/img/Travel Diaries-03.png";
+import { useAuth } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
+  const { user, logout, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
   return (
     <nav className="navbar">
       <div className="navbar-container">
@@ -19,10 +23,14 @@ const Navbar = () => {
 
         {/* Center Section - Navigation Links */}
         <div className="nav-links">
-          <a href="/" className="nav-link connect">
+          <a href="/dashboard" className="nav-link connect">
             Home
           </a>
-          <a style={{textDecoration: "none", color: "black"}} href="/destination" className="nav-link connect">
+          <a
+            style={{ textDecoration: "none", color: "black" }}
+            href="/destination"
+            className="nav-link connect"
+          >
             Destination
           </a>
           <a href="/blogs" className="nav-link connect">
@@ -38,13 +46,41 @@ const Navbar = () => {
 
         {/* Right Section - User Profile */}
         <div className="user-profile">
-          <div className="user-info">
-            <div className="user-name">Nischal Tamang</div>
-            <div className="user-position">Intermediate reviewer</div>
-          </div>
-          <div className="user-avatar">
-            <i className="fas fa-user"></i>
-          </div>
+          {isAuthenticated ? (
+            <div
+              className="user-profile-button"
+              onClick={() => navigate("/profile")}
+              style={{ cursor: "pointer" }}
+              title="Go to Profile"
+            >
+              <div className="user-info">
+                <div className="user-name">{user?.name || "User"}</div>
+                <div className="user-position">Traveler</div>
+              </div>
+              <div className="user-avatar">
+                {user?.avatar ? (
+                  <img 
+                    src={user.avatar} 
+                    alt={user?.name || "User"} 
+                    className="user-avatar-image"
+                  />
+                ) : (
+                  <i className="fas fa-user"></i>
+                )}
+              </div>
+            </div>
+          ) : (
+            <>
+              <div className="user-info">
+                <div className="user-name">Welcome</div>
+                <div className="user-position">Join our community</div>
+              </div>
+              <button className="login-btn" onClick={() => navigate("/login")}>
+                <i className="fas fa-sign-in-alt"></i>
+                Login
+              </button>
+            </>
+          )}
         </div>
       </div>
     </nav>

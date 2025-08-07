@@ -56,6 +56,7 @@ ul {
 ul li {
   margin-bottom: 0.5rem;
   color: #4b5563;
+  background-color: none;
 }
 
 ul li strong {
@@ -80,7 +81,7 @@ a {
 }
 
 a:hover {
-  background-color: #1d4ed8;
+  background-color: none;
 }
 
 /* Contact section styling */

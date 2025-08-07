@@ -1,0 +1,138 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Sarah Johnson",
+      "email": "sarah@example.com",
+      "password": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+      "avatar": "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=150&h=150&fit=crop&crop=face",
+      "location": "Kathmandu, Nepal",
+      "createdAt": "2024-01-15T10:30:00Z"
+    },
+    {
+      "id": 2,
+      "name": "Mike Chen",
+      "email": "mike@example.com",
+      "password": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+      "location": "Pokhara, Nepal",
+      "createdAt": "2024-01-20T14:45:00Z"
+    },
+    {
+      "id": 3,
+      "name": "Emma Davis",
+      "email": "emma@example.com",
+      "password": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+      "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+      "location": "Lumbini, Nepal",
+      "createdAt": "2024-02-01T09:15:00Z"
+    },
+    {
+      "id": 4,
+      "name": "David Wilson",
+      "email": "david@example.com",
+      "password": "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi",
+      "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+      "location": "Chitwan, Nepal",
+      "createdAt": "2024-02-10T16:20:00Z"
+    },
+    {
+      "id": 5,
+      "name": "Sujal Tamrakar",
+      "email": "tamrakarsujal71@gmail.com",
+      "password": "$2a$10$G5wrkILgqxFLJFif.5lFhOQ2rLhj4pSLB4KEWWiEgWqakSQ494sJ2",
+      "location": "9846599210",
+      "avatar": "http://localhost:3001/uploads/avatar-1754494854720-606214119.jpg",
+      "createdAt": "2025-08-06T02:46:23.181Z",
+      "bio": "hello dear friends",
+      "phone": "9846599210",
+      "city": "Lalitpur",
+      "country": "Nepal",
+      "languages": "English, Spanish",
+      "interests": "Teaching English, Citizenship"
+    }
+  ],
+  "posts": [
+    {
+      "id": 1,
+      "userId": 1,
+      "content": "Just visited the stunning Bhaktapur Durbar Square! The ancient architecture and rich culture here is absolutely mesmerizing. Highly recommend visiting during sunset for the most magical experience. #Nepal #Travel #Bhaktapur",
+      "image": "https://images.unsplash.com/photo-1548013146-724df68c6d3b?w=800&h=600&fit=crop",
+      "likes": 124,
+      "comments": 18,
+      "shares": 5,
+      "timestamp": "2024-08-06T05:30:00Z",
+      "likedBy": [
+        2,
+        3
+      ]
+    },
+    {
+      "id": 2,
+      "userId": 2,
+      "content": "Trekking in the Annapurna region was absolutely incredible! The views of the snow-capped peaks and the warm hospitality of the local people made this trip unforgettable. Already planning my next adventure! 🏔️ #Annapurna #Trekking #Nepal",
+      "image": "https://images.unsplash.com/photo-1551632811-561732d1e306?w=800&h=600&fit=crop",
+      "likes": 89,
+      "comments": 12,
+      "shares": 3,
+      "timestamp": "2024-08-06T02:15:00Z",
+      "likedBy": [
+        1,
+        4
+      ]
+    },
+    {
+      "id": 3,
+      "userId": 3,
+      "content": "Visited the birthplace of Buddha today. The peace and serenity here is indescribable. The Maya Devi Temple and the surrounding gardens are a must-visit for anyone interested in Buddhism and spirituality. 🙏 #Lumbini #Buddhism #Peace",
+      "image": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=600&fit=crop",
+      "likes": 156,
+      "comments": 24,
+      "shares": 8,
+      "timestamp": "2024-08-05T10:45:00Z",
+      "likedBy": [
+        1,
+        2,
+        4
+      ]
+    },
+    {
+      "id": 4,
+      "userId": 4,
+      "content": "Just had an amazing wildlife safari in Chitwan National Park! Saw rhinos, elephants, and even a glimpse of a Bengal tiger. The jungle experience was absolutely thrilling. Nature at its finest! 🐘🦏 #Chitwan #Wildlife #Safari",
+      "image": "https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=800&h=600&fit=crop",
+      "likes": 203,
+      "comments": 31,
+      "shares": 12,
+      "timestamp": "2024-08-04T14:20:00Z",
+      "likedBy": [
+        1,
+        2,
+        3
+      ]
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "postId": 1,
+      "userId": 2,
+      "content": "Amazing photos! I've been there too and it's absolutely breathtaking.",
+      "timestamp": "2024-08-06T06:00:00Z"
+    },
+    {
+      "id": 2,
+      "postId": 1,
+      "userId": 3,
+      "content": "The sunset view is incredible! When did you visit?",
+      "timestamp": "2024-08-06T06:30:00Z"
+    },
+    {
+      "id": 3,
+      "postId": 2,
+      "userId": 1,
+      "content": "The Annapurna circuit is on my bucket list! How many days did you trek?",
+      "timestamp": "2024-08-06T03:00:00Z"
+    }
+  ]
+}
